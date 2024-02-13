@@ -23,8 +23,7 @@ function App() {
         handleData(data);
     }
 
-    // useCallback для избавления от лишних ререндеров компонента Search
-    const fetchFilteredData = useCallback(async (key, value) => {
+    async function fetchFilteredData(key, value) {
         if (!value) {
             fetchAllData();
             return;
@@ -34,7 +33,7 @@ function App() {
         );
         const data = await response.json();
         handleData(data);
-    }, []);
+    }
 
     useEffect(() => {
         fetchAllData();

@@ -9,7 +9,7 @@ export default function Search({ onSearch }) {
 
     useEffect(() => {
         onSearch(searchKey, debouncedValue);
-    }, [debouncedValue, searchKey, onSearch]);
+    }, [debouncedValue, searchKey]);
 
     const searchDict = {
         firstName: "First name",
