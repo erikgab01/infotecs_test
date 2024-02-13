@@ -1,19 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import Table from "./Table";
 
 function App() {
-    const [count, setCount] = useState(0);
+    const [users, setUsers] = useState([]);
+
+    async function fetchData() {
+        const response = await fetch("https://dummyjson.com/users");
+        const data = await response.json();
+        const users = data.users.map((users) => ({
+            name: users.lastName + " " + users.firstName + " " + users.maidenName,
+            age: users.age,
+            gender: users.gender,
+            phone: users.phone,
+            address: users.address.address + ", " + users.address.city,
+        }));
+        setUsers(users);
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/App.jsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+            <Table rows={users} />
         </>
     );
 }

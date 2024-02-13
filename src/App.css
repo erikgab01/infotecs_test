@@ -1,14 +1,26 @@
 #root {
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
     text-align: center;
 }
 
-.card {
-    padding: 2em;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.read-the-docs {
-    color: #888;
+thead {
+    color: #d3d2d2;
+    background: #2f2f2f;
+}
+
+th,
+td {
+    padding: 4px 6px;
+    border: 1px solid #505050;
+}
+
+tbody tr:hover {
+    background: #d3d2d2;
+    cursor: pointer;
 }
