@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Table from "./Table";
 import Search from "./Search";
@@ -39,10 +39,38 @@ function App() {
         fetchAllData();
     }, []);
 
+    const columns = [
+        {
+            label: "ФИО",
+            accessor: "name",
+            sortable: true,
+        },
+        {
+            label: "Возраст",
+            accessor: "age",
+            sortable: true,
+        },
+        {
+            label: "Пол",
+            accessor: "gender",
+            sortable: true,
+        },
+        {
+            label: "Телефон",
+            accessor: "phone",
+            sortable: false,
+        },
+        {
+            label: "Адрес",
+            accessor: "address",
+            sortable: true,
+        },
+    ];
+
     return (
         <>
             <Search onSearch={fetchFilteredData} />
-            <Table rows={users} />
+            <Table data={users} columns={columns} />
         </>
     );
 }

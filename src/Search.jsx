@@ -12,14 +12,14 @@ export default function Search({ onSearch }) {
     }, [debouncedValue, searchKey]);
 
     const searchDict = {
-        firstName: "First name",
-        lastName: "Last name",
-        maidenName: "Maiden name",
-        age: "Age",
-        gender: "Gender",
-        phone: "Phone number",
-        "address.address": "Street",
-        "address.city": "City",
+        firstName: "Имя",
+        lastName: "Фамилия",
+        maidenName: "Отчество",
+        age: "Возраст",
+        gender: "Пол",
+        phone: "Номер телефона",
+        "address.address": "Улица",
+        "address.city": "Город",
     };
 
     return (
@@ -32,7 +32,7 @@ export default function Search({ onSearch }) {
                 ))}
             </select>
             <input
-                placeholder="Search"
+                placeholder="Введите запрос"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
             ></input>
