@@ -7,6 +7,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 1rem;
 }
 
 thead {
@@ -16,11 +17,30 @@ thead {
 
 th,
 td {
-    padding: 4px 6px;
+    padding: 0.4rem;
     border: 1px solid #505050;
 }
 
 tbody tr:hover {
     background: #d3d2d2;
     cursor: pointer;
+}
+
+.controls {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+input,
+select {
+    flex: 1;
+    padding: 5px 10px;
+}
+
+button {
+    background: #2f2f2f;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
 }

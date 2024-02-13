@@ -1,5 +1,5 @@
 export default function Table({ rows }) {
-    return rows[0] ? (
+    return rows.length !== 0 ? (
         <table>
             <thead>
                 <tr>
@@ -18,5 +18,7 @@ export default function Table({ rows }) {
                 ))}
             </tbody>
         </table>
-    ) : null;
+    ) : (
+        <p>No data found :(</p>
+    );
 }
