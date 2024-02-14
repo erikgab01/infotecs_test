@@ -1,21 +1,22 @@
 import { useState } from "react";
+import Resizer from "./Resizer";
 
-export default function TableHead({ columns, handleSorting }) {
+export default function TableHead({ setIsResizing, tableHeight, columns, handleSorting }) {
     const [sortField, setSortField] = useState("");
     const [order, setOrder] = useState(0);
     const orderVariants = ["none", "asc", "desc"];
 
-    const handleSortingChange = (accessor) => {
+    function handleSortingChange(accessor) {
         const sortOrder = accessor === sortField ? (order + 1) % 3 : 1;
         setSortField(accessor);
         setOrder(sortOrder);
         handleSorting(accessor, orderVariants[sortOrder]);
-    };
+    }
 
     return (
         <thead>
             <tr>
-                {columns.map(({ label, accessor, sortable }) => {
+                {columns.map(({ label, accessor, sortable, ref }) => {
                     const cl = sortable
                         ? sortField === accessor && orderVariants[order] === "asc"
                             ? "up"
@@ -25,11 +26,17 @@ export default function TableHead({ columns, handleSorting }) {
                         : "";
                     return (
                         <th
+                            ref={ref}
                             key={accessor}
                             onClick={sortable ? () => handleSortingChange(accessor) : null}
                             className={cl}
                         >
                             {label}
+                            <Resizer
+                                setIsResizing={setIsResizing}
+                                tableHeight={tableHeight}
+                                columnRef={ref}
+                            />
                         </th>
                     );
                 })}

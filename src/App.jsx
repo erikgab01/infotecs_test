@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Table from "./Table";
 import Search from "./Search";
@@ -44,26 +44,31 @@ function App() {
             label: "ФИО",
             accessor: "name",
             sortable: true,
+            ref: useRef(),
         },
         {
             label: "Возраст",
             accessor: "age",
             sortable: true,
+            ref: useRef(),
         },
         {
             label: "Пол",
             accessor: "gender",
             sortable: true,
+            ref: useRef(),
         },
         {
             label: "Телефон",
             accessor: "phone",
             sortable: false,
+            ref: useRef(),
         },
         {
             label: "Адрес",
             accessor: "address",
             sortable: true,
+            ref: useRef(),
         },
     ];
 
