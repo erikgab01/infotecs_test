@@ -9,6 +9,7 @@ export default function Search({ onSearch }) {
 
     useEffect(() => {
         onSearch(searchKey, debouncedValue);
+        // eslint-disable-next-line
     }, [debouncedValue, searchKey]);
 
     const searchDict = {

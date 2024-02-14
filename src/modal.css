@@ -1,0 +1,45 @@
+.btn {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 4px 4px black;
+    cursor: pointer;
+}
+
+.overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 4px 4px black;
+    width: 60%;
+    padding: 50px 0;
+    gap: 1rem;
+}
+
+.modal__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal__title {
+    text-align: center;
+    margin: 0;
+}

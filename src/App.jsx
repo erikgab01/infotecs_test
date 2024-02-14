@@ -8,6 +8,7 @@ function App() {
 
     function handleData(data) {
         const users = data.users.map((users) => ({
+            id: users.id,
             name: users.lastName + " " + users.firstName + " " + users.maidenName,
             age: users.age,
             gender: users.gender,
@@ -37,6 +38,7 @@ function App() {
 
     useEffect(() => {
         fetchAllData();
+        // eslint-disable-next-line
     }, []);
 
     const columns = [
