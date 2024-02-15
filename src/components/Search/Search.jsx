@@ -12,7 +12,7 @@ export default function Search({ selectDict, onSearch }) {
     useEffect(() => {
         onSearch(searchKey, debouncedValue);
         // eslint-disable-next-line
-    }, [debouncedValue, searchKey]);
+    }, [debouncedValue]);
 
     return (
         <div className="search">

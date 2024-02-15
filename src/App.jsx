@@ -7,6 +7,7 @@ import fieldsDict from "./utils/fieldsDict";
 
 function App() {
     const [users, setUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     function handleUsersObject(data) {
         const users = data.users.map((users) => ({
@@ -21,14 +22,17 @@ function App() {
     }
 
     async function handleSearch(key, value) {
+        setIsLoading(true);
         const users = await fetchFilteredUsers(key, value);
         handleUsersObject(users);
+        setIsLoading(false);
     }
 
     useEffect(() => {
         (async () => {
             const users = await fetchAllUsers();
             handleUsersObject(users);
+            setIsLoading(false);
         })();
         // eslint-disable-next-line
     }, []);
@@ -69,7 +73,7 @@ function App() {
     return (
         <>
             <Search selectDict={fieldsDict} onSearch={handleSearch} />
-            <Table data={users} columns={columns} />
+            {isLoading ? <p>Загрузка...</p> : <Table data={users} columns={columns} />}
         </>
     );
 }
