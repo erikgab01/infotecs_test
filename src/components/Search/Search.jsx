@@ -3,7 +3,7 @@ import useDebounce from "../../hooks/useDebounce";
 
 import "./search.css";
 
-export default function Search({ onSearch }) {
+export default function Search({ selectDict, onSearch }) {
     const [searchValue, setSearchValue] = useState("");
     const [searchKey, setSearchKey] = useState("firstName");
 
@@ -14,17 +14,6 @@ export default function Search({ onSearch }) {
         // eslint-disable-next-line
     }, [debouncedValue, searchKey]);
 
-    const searchDict = {
-        firstName: "Имя",
-        lastName: "Фамилия",
-        maidenName: "Отчество",
-        age: "Возраст",
-        gender: "Пол",
-        phone: "Номер телефона",
-        "address.address": "Улица",
-        "address.city": "Город",
-    };
-
     return (
         <div className="search">
             <select
@@ -32,9 +21,9 @@ export default function Search({ onSearch }) {
                 value={searchKey}
                 onChange={(e) => setSearchKey(e.target.value)}
             >
-                {Object.keys(searchDict).map((key, index) => (
+                {Object.keys(selectDict).map((key, index) => (
                     <option value={key} key={index}>
-                        {searchDict[key]}
+                        {selectDict[key]}
                     </option>
                 ))}
             </select>

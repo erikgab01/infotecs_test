@@ -1,47 +1,21 @@
-import { useRef, useState } from "react";
+import { useEffect } from "react";
+import useResize from "../../hooks/useResize";
+
 import "./resizer.css";
 
-export default function Resizer({ setIsResizing, tableHeight, columnRef }) {
-    const [isActive, setIsActive] = useState(false);
-    const mouseX = useRef(0);
-    const width = useRef(0);
+export default function Resizer({ updateTableHeight, tableHeight, columnRef }) {
+    const [isResizing, handleResize] = useResize();
 
-    const minColumnWidth = 50;
-
-    function handleMouseDown(e) {
-        const col = columnRef.current;
-        const styles = window.getComputedStyle(col);
-        mouseX.current = e.clientX;
-        width.current = parseInt(styles.width, 10);
-
-        document.addEventListener("mousemove", mouseMoveHandler);
-        document.addEventListener("mouseup", mouseUpHandler);
-
-        setIsActive(true);
-        setIsResizing(true);
-    }
-
-    function mouseMoveHandler(e) {
-        const col = columnRef.current;
-        const dx = e.clientX - mouseX.current;
-        if (width.current + dx < minColumnWidth) {
-            return;
-        }
-        col.style.width = `${width.current + dx}px`;
-    }
-
-    function mouseUpHandler() {
-        setIsActive(false);
-        setIsResizing(false);
-        document.removeEventListener("mousemove", mouseMoveHandler);
-        document.removeEventListener("mouseup", mouseUpHandler);
-    }
+    useEffect(() => {
+        updateTableHeight();
+        // eslint-disable-next-line
+    }, [isResizing]);
 
     return (
         <div
-            onMouseDown={handleMouseDown}
+            onMouseDown={(e) => handleResize(e, columnRef)}
             onClick={(e) => e.stopPropagation()}
-            className={`resizer ${isActive ? "resizing" : ""}`}
+            className={`resizer ${isResizing ? "resizing" : ""}`}
             style={{ height: tableHeight }}
         ></div>
     );

@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { fetchAllUsers, fetchFilteredUsers } from "./services/userService";
 import Search from "./components/Search/Search";
 import Table from "./components/Table/Table";
+
+import fieldsDict from "./utils/fieldsDict";
 
 function App() {
     const [users, setUsers] = useState([]);
 
-    function handleData(data) {
+    function handleUsersObject(data) {
         const users = data.users.map((users) => ({
             id: users.id,
             name: users.lastName + " " + users.firstName + " " + users.maidenName,
@@ -17,26 +20,16 @@ function App() {
         setUsers(users);
     }
 
-    async function fetchAllData() {
-        const response = await fetch("https://dummyjson.com/users");
-        const data = await response.json();
-        handleData(data);
-    }
-
-    async function fetchFilteredData(key, value) {
-        if (!value) {
-            fetchAllData();
-            return;
-        }
-        const response = await fetch(
-            `https://dummyjson.com/users/filter?key=${key}&value=${value}`
-        );
-        const data = await response.json();
-        handleData(data);
+    async function handleSearch(key, value) {
+        const users = await fetchFilteredUsers(key, value);
+        handleUsersObject(users);
     }
 
     useEffect(() => {
-        fetchAllData();
+        (async () => {
+            const users = await fetchAllUsers();
+            handleUsersObject(users);
+        })();
         // eslint-disable-next-line
     }, []);
 
@@ -75,7 +68,7 @@ function App() {
 
     return (
         <>
-            <Search onSearch={fetchFilteredData} />
+            <Search selectDict={fieldsDict} onSearch={handleSearch} />
             <Table data={users} columns={columns} />
         </>
     );

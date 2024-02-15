@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Resizer from "../Resizer/Resizer";
 
-export default function TableHead({ setIsResizing, tableHeight, columns, handleSorting }) {
+export default function TableHead({ updateTableHeight, tableHeight, columns, handleSorting }) {
     const [sortField, setSortField] = useState("");
     const [order, setOrder] = useState(0);
     const orderVariants = ["none", "asc", "desc"];
@@ -33,7 +33,7 @@ export default function TableHead({ setIsResizing, tableHeight, columns, handleS
                         >
                             {label}
                             <Resizer
-                                setIsResizing={setIsResizing}
+                                updateTableHeight={updateTableHeight}
                                 tableHeight={tableHeight}
                                 columnRef={ref}
                             />

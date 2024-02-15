@@ -6,31 +6,42 @@ import Modal from "../Modal/Modal";
 import UserInfo from "./UserInfo";
 
 import "./table.css";
+import { fetchUserById } from "../../services/userService";
 
 export default function Table({ data, columns }) {
     const [tableHeight, setTableHeight] = useState("auto");
     const [tableData, updateTableData, handleSorting] = useSort(data);
-    const [isResizing, setIsResizing] = useState(false);
     const [tableModalShow, setTableModalShow] = useState(false);
     const [chosenUser, setChosenUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const table = useRef(null);
 
-    async function getUserById(userId) {
-        if (!userId) {
+    // async function getUserById(userId) {
+    //     if (!userId) {
+    //         return;
+    //     }
+    //     setIsLoading(true);
+    //     const res = await fetch(`https://dummyjson.com/users/${userId}`);
+    //     const data = await res.json();
+    //     setChosenUser(data);
+    //     setIsLoading(false);
+    // }
+
+    async function openTableModal(id) {
+        setTableModalShow(true);
+        setIsLoading(true);
+        const user = await fetchUserById(id);
+        if (!user) {
+            // Error handling
+            setIsLoading(false);
             return;
         }
-        setIsLoading(true);
-        const res = await fetch(`https://dummyjson.com/users/${userId}`);
-        const data = await res.json();
-        setChosenUser(data);
+        setChosenUser(user);
         setIsLoading(false);
     }
 
-    function openTableModal(id) {
-        console.log(id);
-        getUserById(id);
-        setTableModalShow(true);
+    function updateTableHeight() {
+        setTableHeight(table.current?.offsetHeight);
     }
 
     useEffect(() => {
@@ -39,8 +50,8 @@ export default function Table({ data, columns }) {
     }, [data]);
 
     useEffect(() => {
-        setTableHeight(table.current?.offsetHeight);
-    }, [tableData, isResizing]);
+        updateTableHeight();
+    }, [tableData]);
 
     if (tableData.length === 0) {
         return <p>Данные не найдены :(</p>;
@@ -50,7 +61,7 @@ export default function Table({ data, columns }) {
         <>
             <table className="table" ref={table}>
                 <TableHead
-                    setIsResizing={setIsResizing}
+                    updateTableHeight={updateTableHeight}
                     tableHeight={tableHeight}
                     columns={columns}
                     handleSorting={handleSorting}
