@@ -1,6 +1,6 @@
 export default function UserInfo({ user }) {
     return !user ? (
-        <p>Произошла ошибка при загрузке пользователя</p>
+        <p className="error">Произошла ошибка при загрузке пользователя</p>
     ) : (
         <>
             <span>ФИО: {user.lastName + " " + user.firstName + " " + user.maidenName}</span>

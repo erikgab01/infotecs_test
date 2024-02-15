@@ -2,25 +2,45 @@ async function fetchUserById(userId) {
     if (!userId) {
         return null;
     }
-    const response = await fetch(`https://dummyjson.com/users/${userId}`);
-    const user = await response.json();
-    return user;
+    try {
+        const response = await fetch(`https://dummyjson.com/users/${userId}`);
+        const user = await response.json();
+        if (user.message) {
+            throw new Error(user.message);
+        }
+        return user;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
 }
 
 async function fetchAllUsers() {
-    const response = await fetch("https://dummyjson.com/users");
-    const users = await response.json();
-    return users;
+    try {
+        const response = await fetch("https://dummyjson.com/users");
+        const users = await response.json();
+        return users;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
 }
 
 async function fetchFilteredUsers(key, value) {
-    if (!value) {
-        const users = await fetchAllUsers();
+    try {
+        if (!value) {
+            const users = await fetchAllUsers();
+            return users;
+        }
+        const response = await fetch(
+            `https://dummyjson.com/users/filter?key=${key}&value=${value}`
+        );
+        const users = await response.json();
         return users;
+    } catch (error) {
+        console.log(error);
+        return null;
     }
-    const response = await fetch(`https://dummyjson.com/users/filter?key=${key}&value=${value}`);
-    const users = await response.json();
-    return users;
 }
 
 export { fetchUserById, fetchAllUsers, fetchFilteredUsers };

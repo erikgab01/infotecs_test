@@ -8,8 +8,13 @@ import fieldsDict from "./utils/fieldsDict";
 function App() {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     function handleUsersObject(data) {
+        if (data === null) {
+            setError("Произошла ошибка при загрузке данных");
+            return;
+        }
         const users = data.users.map((users) => ({
             id: users.id,
             name: users.lastName + " " + users.firstName + " " + users.maidenName,
@@ -73,6 +78,7 @@ function App() {
     return (
         <>
             <Search selectDict={fieldsDict} onSearch={handleSearch} />
+            {error ? <p className="error">{error}</p> : null}
             {isLoading ? <p>Загрузка...</p> : <Table data={users} columns={columns} />}
         </>
     );
