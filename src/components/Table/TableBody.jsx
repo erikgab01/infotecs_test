@@ -1,13 +1,15 @@
 export default function TableBody({ openTableModal, rows }) {
     return (
-        <tbody>
+        <tbody className="table__body">
             {rows.map((row, index) => {
                 let rowCopy = Object.assign({}, row);
                 delete rowCopy.id;
                 return (
-                    <tr key={index} onClick={() => openTableModal(row.id)}>
+                    <tr className="table__row" key={index} onClick={() => openTableModal(row.id)}>
                         {Object.values(rowCopy).map((entry, columnIndex) => (
-                            <td key={columnIndex}>{entry}</td>
+                            <td className="table__cell" key={columnIndex}>
+                                {entry}
+                            </td>
                         ))}
                     </tr>
                 );

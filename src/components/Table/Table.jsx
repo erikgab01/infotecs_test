@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import useSort from "./hooks/useSort";
+import useSort from "../../hooks/useSort";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
-import TableModal from "./TableModal";
+import Modal from "../Modal/Modal";
+import UserInfo from "./UserInfo";
+
+import "./table.css";
 
 export default function Table({ data, columns }) {
     const [tableHeight, setTableHeight] = useState("auto");
@@ -10,11 +13,23 @@ export default function Table({ data, columns }) {
     const [isResizing, setIsResizing] = useState(false);
     const [tableModalShow, setTableModalShow] = useState(false);
     const [chosenUser, setChosenUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const table = useRef(null);
+
+    async function getUserById(userId) {
+        if (!userId) {
+            return;
+        }
+        setIsLoading(true);
+        const res = await fetch(`https://dummyjson.com/users/${userId}`);
+        const data = await res.json();
+        setChosenUser(data);
+        setIsLoading(false);
+    }
 
     function openTableModal(id) {
         console.log(id);
-        setChosenUser(id);
+        getUserById(id);
         setTableModalShow(true);
     }
 
@@ -33,7 +48,7 @@ export default function Table({ data, columns }) {
 
     return (
         <>
-            <table ref={table}>
+            <table className="table" ref={table}>
                 <TableHead
                     setIsResizing={setIsResizing}
                     tableHeight={tableHeight}
@@ -42,7 +57,13 @@ export default function Table({ data, columns }) {
                 />
                 <TableBody openTableModal={openTableModal} rows={tableData} />
             </table>
-            <TableModal isShow={tableModalShow} setIsShow={setTableModalShow} userId={chosenUser} />
+            <Modal
+                isShow={tableModalShow}
+                setIsShow={setTableModalShow}
+                modalTitle="Информация о пользователе"
+            >
+                {isLoading ? <p>Загрузка...</p> : <UserInfo user={chosenUser} />}
+            </Modal>
         </>
     );
 }

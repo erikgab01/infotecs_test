@@ -1,0 +1,11 @@
+.search {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.search__input,
+.search__select {
+    flex: 1;
+    padding: 5px 10px;
+}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Resizer from "./Resizer";
+import Resizer from "../Resizer/Resizer";
 
 export default function TableHead({ setIsResizing, tableHeight, columns, handleSorting }) {
     const [sortField, setSortField] = useState("");
@@ -14,8 +14,8 @@ export default function TableHead({ setIsResizing, tableHeight, columns, handleS
     }
 
     return (
-        <thead>
-            <tr>
+        <thead className="table__head">
+            <tr className="table__row">
                 {columns.map(({ label, accessor, sortable, ref }) => {
                     const cl = sortable
                         ? sortField === accessor && orderVariants[order] === "asc"
@@ -29,7 +29,7 @@ export default function TableHead({ setIsResizing, tableHeight, columns, handleS
                             ref={ref}
                             key={accessor}
                             onClick={sortable ? () => handleSortingChange(accessor) : null}
-                            className={cl}
+                            className={`table__header ${cl}`}
                         >
                             {label}
                             <Resizer

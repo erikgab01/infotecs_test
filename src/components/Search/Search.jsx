@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import useDebounce from "./hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
+
+import "./search.css";
 
 export default function Search({ onSearch }) {
     const [searchValue, setSearchValue] = useState("");
@@ -24,8 +26,12 @@ export default function Search({ onSearch }) {
     };
 
     return (
-        <div className="controls">
-            <select title="search" value={searchKey} onChange={(e) => setSearchKey(e.target.value)}>
+        <div className="search">
+            <select
+                className="search__select"
+                value={searchKey}
+                onChange={(e) => setSearchKey(e.target.value)}
+            >
                 {Object.keys(searchDict).map((key, index) => (
                     <option value={key} key={index}>
                         {searchDict[key]}
@@ -33,6 +39,7 @@ export default function Search({ onSearch }) {
                 ))}
             </select>
             <input
+                className="search__input"
                 placeholder="Введите запрос"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}

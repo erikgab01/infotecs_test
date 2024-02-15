@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import "./resizer.css";
 
 export default function Resizer({ setIsResizing, tableHeight, columnRef }) {
     const [isActive, setIsActive] = useState(false);
