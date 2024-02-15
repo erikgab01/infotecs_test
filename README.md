@@ -31,7 +31,7 @@ git clone https://github.com/erikgab01/infotecs_test.git
 npm install
 ```
 
--   Запустить клиентское приложение, приложение запустится на http://localhost:5173
+-   Запустить приложение (по умолчанию, запустится на http://localhost:5173)
 
 ```
 npm run dev
