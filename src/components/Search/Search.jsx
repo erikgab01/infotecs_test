@@ -3,10 +3,17 @@ import useDebounce from "../../hooks/useDebounce";
 
 import "./search.css";
 
+/**
+ * Компонент для поиска с выбором полей
+ *
+ * @param {object} selectDict - словарь для полей
+ * @param {function} onSearch - обработчик поиска
+ */
 export default function Search({ selectDict, onSearch }) {
     const [searchValue, setSearchValue] = useState("");
     const [searchKey, setSearchKey] = useState("firstName");
 
+    // Используем debounce для задержки срабатывания поиска
     const debouncedValue = useDebounce(searchValue, 500);
 
     useEffect(() => {

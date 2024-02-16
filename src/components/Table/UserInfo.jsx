@@ -1,3 +1,8 @@
+/**
+ * Компонент для отображения информации о пользователе
+ *
+ * @param {object} user - объект пользователя
+ */
 export default function UserInfo({ user }) {
     return !user ? (
         <p className="error">Произошла ошибка при загрузке пользователя</p>

@@ -1,3 +1,4 @@
+// Для select в компоненте Search
 const fieldsDict = {
     firstName: "Имя",
     lastName: "Фамилия",

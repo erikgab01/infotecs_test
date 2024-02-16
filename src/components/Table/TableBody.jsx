@@ -1,3 +1,7 @@
+/**
+ * @param {function} openTableModal - фунция для открытия модального окна с информацией о строке таблицы
+ * @param {object[]} rows - строки таблицы
+ */
 export default function TableBody({ openTableModal, rows }) {
     return (
         <tbody className="table__body">

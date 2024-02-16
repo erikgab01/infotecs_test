@@ -10,6 +10,11 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    /**
+     * Функция для перевода данных из API в подходящий формат (берем только те поля, которые нужны)
+     *
+     * @param {object} data - данные из API.
+     */
     function handleUsersObject(data) {
         if (data === null) {
             setError("Произошла ошибка при загрузке данных");
@@ -26,6 +31,12 @@ function App() {
         setUsers(users);
     }
 
+    /**
+     * Функция для обработки поиска пользователей по всей таблице
+     *
+     * @param {string} key - поле, по которому ищем
+     * @param {string} value - поисковый запрос
+     */
     async function handleSearch(key, value) {
         setIsLoading(true);
         const users = await fetchFilteredUsers(key, value);
@@ -33,6 +44,7 @@ function App() {
         setIsLoading(false);
     }
 
+    // Первоначальная загрузка всех пользователей
     useEffect(() => {
         (async () => {
             const users = await fetchAllUsers();
@@ -42,6 +54,7 @@ function App() {
         // eslint-disable-next-line
     }, []);
 
+    // Список колонок таблицы (с рефами на них и дополнительной информацией)
     const columns = [
         {
             label: "ФИО",

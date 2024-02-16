@@ -1,11 +1,22 @@
 import { useState } from "react";
 import Resizer from "../Resizer/Resizer";
 
+/**
+ * @param {function} updateTableHeight - функция для обновления высоты таблицы (для работы Resizer)
+ * @param {number} tableHeight - текущая высота таблицы (для работы Resizer)
+ * @param {object[]} columns - массив данных о колонках таблицы
+ * @param {function} handleSorting - обработчик сортировки
+ */
 export default function TableHead({ updateTableHeight, tableHeight, columns, handleSorting }) {
     const [sortField, setSortField] = useState("");
     const [order, setOrder] = useState(0);
     const orderVariants = ["none", "asc", "desc"];
 
+    /**
+     * Обработчик нажатия на кнопку сортировки
+     *
+     * @param {string} accessor - поле, по которому сортируем
+     */
     function handleSortingChange(accessor) {
         const sortOrder = accessor === sortField ? (order + 1) % 3 : 1;
         setSortField(accessor);

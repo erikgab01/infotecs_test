@@ -8,6 +8,10 @@ import UserInfo from "./UserInfo";
 
 import "./table.css";
 
+/**
+ * @param {object[]} data - массив объектов данных
+ * @param {object[]} columns - массив данных о колонках таблицы
+ */
 export default function Table({ data, columns }) {
     const [tableHeight, setTableHeight] = useState("auto");
     const [tableData, updateTableData, handleSorting] = useSort(data);
@@ -16,6 +20,11 @@ export default function Table({ data, columns }) {
     const [isLoading, setIsLoading] = useState(false);
     const table = useRef(null);
 
+    /**
+     * Функция для открытия модального окна с информацией о пользователе
+     *
+     * @param {number} id - идентификатор пользователя
+     */
     async function openTableModal(id) {
         setTableModalShow(true);
         setIsLoading(true);
@@ -29,15 +38,20 @@ export default function Table({ data, columns }) {
         setIsLoading(false);
     }
 
+    /**
+     * Функция для обновления записи о высоте таблицы (для корректной равоты компонента Resizer)
+     */
     function updateTableHeight() {
         setTableHeight(table.current?.offsetHeight);
     }
 
+    // Обновляем данные таблицы в хуке useSort
     useEffect(() => {
         updateTableData(data);
         // eslint-disable-next-line
     }, [data]);
 
+    // Обновляем высоту таблицы при изменении списка пользователей
     useEffect(() => {
         updateTableHeight();
     }, [tableData]);

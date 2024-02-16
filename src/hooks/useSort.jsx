@@ -1,8 +1,20 @@
 import { useState } from "react";
 
+/**
+ * Хук для сортировки данных
+ *
+ * @param {object[]} data - массив объектов для сортировки
+ * @returns {object[]} отсортированный массив объектов
+ */
 export default function useSort(data) {
     const [tableData, setTableData] = useState(data);
 
+    /**
+     * Функция сортировки по полю и методу
+     *
+     * @param {string} sortField - поле для сортировки
+     * @param {string} sortOrder - метод сортировки (по возрастанию, по убыванию, без сортировки)
+     */
     function handleSorting(sortField, sortOrder) {
         if (sortField && sortOrder !== "none") {
             const sorted = [...tableData].sort((a, b) => {
@@ -21,6 +33,9 @@ export default function useSort(data) {
         }
     }
 
+    /**
+     * Функция для обновления данных внутри хука
+     */
     function updateTableData(data) {
         setTableData(data);
     }

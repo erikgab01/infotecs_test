@@ -1,5 +1,11 @@
 import "./modal.css";
 
+/**
+ * @param {boolean} isShow - отображать модальное окно или нет
+ * @param {function} setIsShow - функция задания отображения модального окна
+ * @param {string} modalTitle - заголовок модального окна
+ * @param {ReactNode} children - содержимое модального окна
+ */
 export default function Modal({ isShow, setIsShow, modalTitle, children }) {
     return isShow ? (
         <div className="overlay" onClick={() => setIsShow(false)}>
